@@ -1,27 +1,32 @@
-const cardsBacklog = [{
-  id: crypto.randomUUID(),
-  title: "Card 1",
-  description: "This is a description for card 1",
-  assigned: "John Doe",
-  priority: "High",
-  state: "inProgress",
-  deadline: "2021-12-31",
-}];
-
-const cardsTodo = [];
-
-const cardsInProgress = [];
-
-const cardsBlocked = [];
-
-const cardsDone = [];
+const cards = {
+  backlog: [{
+    id: crypto.randomUUID(),
+    title: "Card 1",
+    description: "This is a description for card 1",
+    assigned: "John Doe",
+    priority: "High",
+    state: "backlog",
+    deadline: "2021-12-31",
+  }],
+  todo: [],
+  inProgress: [],
+  blocked: [],
+  done: [],
+}
 
 const columns = [document.getElementById("backlog"),
-              document.getElementById("todo"),
-              document.getElementById("inProgress"),
-              document.getElementById("blocked"),
-              document.getElementById("done"),
-            ]
+document.getElementById("todo"),
+document.getElementById("inProgress"),
+document.getElementById("blocked"),
+document.getElementById("done"),
+]
+
+const backgroundColors = ['has-background-dark',
+  'has-background-info',
+  'has-background-warnin',
+  'has-background-danger',
+  'has-background-success'
+]
 
 document.addEventListener('DOMContentLoaded', () => {
   // Functions to open and close a modal
@@ -68,27 +73,54 @@ document.addEventListener('DOMContentLoaded', () => {
 function createCard({ title, description, assigned, priority, state, deadline }) {
   const id = crypto.randomUUID();
 
-  cards.shift({ id, title, description, assigned, priority, state, deadline });
+  const column = Object.keys(cards).indexOf(state) + 1;
+
+  cards[state].push({ id, title, description, assigned, priority, state, deadline });
+
+  updateCards(column, cards[state]);
 }
 
-function updateCards(column) {
-  const col = columns[column];
-  col.
+function updateCards(columnIndex, cards) {
+  const col = columns[columnIndex - 1]; // Adjusting for 0-based index
+  console.log({ col });
+  const previousCards = col.querySelectorAll(".draggable"); // Assuming the class is used for cards
+  previousCards.forEach(element => element.remove());
+
+  console.log({ cards, columnIndex });
+
   cards.forEach((card) => {
     const cardTemplate = document.querySelector("#card");
+
     const h = cardTemplate.content.querySelector("h5");
-    console.log({ h });
     const p = cardTemplate.content.querySelector("p");
 
-    h.textContent = title;
-    p.textContent = description;
-    let clone = document.importNode(cardTemplate.content, true);
+    h.textContent = card.title;
+    p.textContent = card.description;
+
+    const clone = document.importNode(cardTemplate.content, true);
+
+    const div = clone.querySelector("div");
+    const h5 = div.querySelector("h5");
+    const paragraph = div.querySelector("p");
+
+    h5.classList.add("is-size-5");
+    paragraph.classList.add("is-size-6");
+
+    div.classList.add('draggable');
+    div.classList.add('card');
+
+    div.classList.add(backgroundColors[columnIndex]);
+
+    div.draggable = true;
+
+    div.id = card.id;
 
     col.appendChild(clone);
-  })
+  });
 }
 
-createCard(cards[0]);
+updateCards(1, cards.backlog);
+// createCard(cards[0]);
 
 const handleCardSave = () => {
   const title = document.getElementById("title").value;
@@ -98,6 +130,65 @@ const handleCardSave = () => {
   const state = document.getElementById("state").value;
   const deadline = document.getElementById("deadline").value;
 
+  validarTitleModal(title);
+  validarDescriptionModal(description)
+  validarAssignedModal(assigned);
+
+  console.log({ title, description, assigned, priority, state, deadline });
+
   createCard({ title, description, assigned, priority, state, deadline });
-  updateCards();
+}
+
+const errorTitle = document.getElementById("errorTitle");
+const errorDescription = document.getElementById("errorDescription");
+const errorAssigned = document.getElementById("errorAssigned");
+
+function moveCard(cardId, targetColumn) {
+  const card = Object.values(cards).flat().find(card => card.id === cardId);
+
+  console.log({ card, cardId, targetColumn });
+
+  const previousColumn = cards[card.state];
+
+  previousColumn.splice(previousColumn.indexOf(card), 1);
+
+  cards[targetColumn].push({
+    ...card,
+    state: targetColumn,
+  });
+
+  updateCards(Object.keys(cards).indexOf(card.state) + 1, previousColumn);
+  updateCards(Object.keys(cards).indexOf(targetColumn) + 1, cards[targetColumn]);
+
+  console.log({ cards });
+}
+
+function validarTitleModal(title) {
+  if (title.trim() === "") {
+    errorTitle.textContent = "Debe escribir el nombre de la tarea.";
+    return false;
+  } else {
+    errorTitle.textContent = "";
+    return true;
+  }
+}
+
+function validarDescriptionModal(description) {
+  if (description.trim() === "") {
+    errorDescription.textContent = "Debe escribir una breve descripcion de la tarea.";
+    return false;
+  } else {
+    errorDescription.textContent = "";
+    return true;
+  }
+}
+
+function validarAssignedModal(assigned) {
+  if (assigned === "") {
+    errorAssigned.textContent = "Debe seleccionar una opción.";
+    return false;
+  } else {
+    errorAssigned.textContent = "";
+    return true;
+  }
 }

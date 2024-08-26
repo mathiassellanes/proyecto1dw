@@ -18,40 +18,34 @@
       Agregar tarea
     </button>
   </div>
-  <div>
-    <div class="columns">
-      <div id="backlog" class="column">
-        <h2>
-          BACKLOG
-        </h2>
-      </div>
-      </div>
-      <div id="todo" class="column">
-        <h2>
-          TO DO
-        </h2>
-      </div>
-      <div id="inProgress" class="column">
-        <h2>
-          IN PROGRESS
-        </h2>
-      </div>
+  <div class="columns">
+    <div id="backlog" class="column">
+      <h2 class="is-size-4">
+        BACKLOG
+      </h2>
     </div>
-
-    <div class="columns">
-      <div id="blocked" class="column">
-        <h2>
-          BLOCKED
-        </h2>
-      </div>
-      <div id="done" class="column">
-        <h2>
-          DONE
-        </h2>
-      </div>
+    <div id="todo" class="column">
+      <h2 class="is-size-4">
+        TO DO
+      </h2>
     </div>
-
+    <div id="inProgress" class="column">
+      <h2 class="is-size-4">
+        IN PROGRESS
+      </h2>
+    </div>
+    <div id="blocked" class="column">
+      <h2 class="is-size-4">
+        BLOCKED
+      </h2>
+    </div>
+    <div id="done" class="column">
+      <h2 class="is-size-4">
+        DONE
+      </h2>
+    </div>
   </div>
+
   <div class="modal" id="addcard">
     <div class="modal-background"></div>
     <div class="modal-card">
@@ -64,32 +58,35 @@
           <div class="field">
             <label class="label">Nombre de la tarea</label>
             <div class="control">
-              <input class="input" type="text" placeholder="Text input">
+              <input class="input" id="title" type="text" placeholder="Text input">
+              <span id="errorTitle" class="error"></span>
             </div>
           </div>
           <div class="field">
             <label class="label">Descripción de la tarea</label>
             <div class="control">
-              <textarea class="textarea" placeholder="Textarea"></textarea>
+              <textarea id="description" class="textarea" placeholder="Textarea"></textarea>
+              <span id="errorDescription" class="error"></span>
             </div>
           </div>
           <div class="field">
             <label class="label">Asignado</label>
             <div class="control">
               <div class="select">
-                <select>
+                <select id="assigned">
                   <option>Opción 1</option>
                   <option>Opción 2</option>
                   <option>Opción 3</option>
                 </select>
               </div>
+              <span id="errorAssigned" class="error"></span>
             </div>
           </div>
           <div class="field">
             <label class="label">Prioridad</label>
             <div class="control">
               <div class="select">
-                <select>
+                <select id="priority">
                   <option>Alta</option>
                   <option>Media</option>
                   <option>Baja</option>
@@ -101,7 +98,7 @@
             <label class="label">Estado</label>
             <div class="control">
               <div class="select">
-                <select>
+                <select id="state">
                   <option value="backlog">Backlog</option>
                   <option value="todo">TO DO</option>
                   <option value="inProgress">In Progress</option>
@@ -114,14 +111,14 @@
           <div class="field">
             <label class="label">Fecha Límite</label>
             <div class="control">
-              <input class="input" type="date">
+              <input id="deadline" class="input" type="date">
             </div>
           </div>
 
         </section>
         <footer class="modal-card-foot">
           <div class="buttons">
-            <button onclick="handleCardSave()" class="button is-success">Guardar cambios</button>
+            <button onclick="handleCardSave()" type="button" class="button is-success">Guardar cambios</button>
             <button class="button">Cancelar</button>
           </div>
         </footer>
@@ -138,6 +135,7 @@
 
 
   <script src="script.js"></script>
+  <script src="dragHelpers.js"></script>
 </body>
 
 </html>
