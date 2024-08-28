@@ -130,9 +130,19 @@ const handleCardSave = () => {
   const state = document.getElementById("state").value;
   const deadline = document.getElementById("deadline").value;
 
-  validarTitleModal(title);
-  validarDescriptionModal(description)
-  validarAssignedModal(assigned);
+  // validarTitleModal(title);
+  // validarDescriptionModal(description)
+  // // validarAssignedModal(assigned);
+  // validarDeadLineModal(deadline);
+
+  const esValidoTitle = validarTitleModal(title);
+  const esValidoDescription = validarDescriptionModal(description);
+  const esValidoDeadLine = validarDeadLineModal(deadline);
+
+  // Si alguna de las validaciones falla, no se debe continuar
+  if (!esValidoTitle || !esValidoDescription || !esValidoDeadLine) {
+    return;
+  }
 
   console.log({ title, description, assigned, priority, state, deadline });
 
@@ -141,7 +151,8 @@ const handleCardSave = () => {
 
 const errorTitle = document.getElementById("errorTitle");
 const errorDescription = document.getElementById("errorDescription");
-const errorAssigned = document.getElementById("errorAssigned");
+// const errorAssigned = document.getElementById("errorAssigned");
+const errorDeadLine = document.getElementById("errorDeadLine");
 
 function moveCard(cardId, targetColumn) {
   const card = Object.values(cards).flat().find(card => card.id === cardId);
@@ -183,12 +194,23 @@ function validarDescriptionModal(description) {
   }
 }
 
-function validarAssignedModal(assigned) {
-  if (assigned === "") {
-    errorAssigned.textContent = "Debe seleccionar una opción.";
+function validarDeadLineModal(deadLine) {
+  // Verificar si se ha seleccionado una fecha válida
+  if (deadLine === "") {
+    errorDeadLine.textContent = "Debe seleccionar una fecha.";
     return false;
   } else {
-    errorAssigned.textContent = "";
+    errorDeadLine.textContent = "";
     return true;
   }
 }
+
+// function validarAssignedModal(assigned) {
+//   if (assigned === "") {
+//     errorAssigned.textContent = "Debe seleccionar una opción.";
+//     return false;
+//   } else {
+//     errorAssigned.textContent = "";
+//     return true;
+//   }
+// }
