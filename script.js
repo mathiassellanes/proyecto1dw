@@ -29,7 +29,7 @@ const backgroundColors = ['has-background-dark',
 ]
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Functions to open and close a modal
+
   function openModal($el) {
     console.log({ $el });
     $el.classList.add('is-active');
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
     openModal($modal);
   });
 
-  // Add a click event on various child elements to close the parent modal
+
   (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
     const $target = $close.closest('.modal');
 
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Add a keyboard event to close all modals
+
   document.addEventListener('keydown', (event) => {
     if (event.key === "Escape") {
       closeAllModals();
@@ -81,9 +81,9 @@ function createCard({ title, description, assigned, priority, state, deadline })
 }
 
 function updateCards(columnIndex, cards) {
-  const col = columns[columnIndex - 1]; // Adjusting for 0-based index
+  const col = columns[columnIndex - 1];
   console.log({ col });
-  const previousCards = col.querySelectorAll(".draggable"); // Assuming the class is used for cards
+  const previousCards = col.querySelectorAll(".draggable");
   previousCards.forEach(element => element.remove());
 
   console.log({ cards, columnIndex });
@@ -120,7 +120,7 @@ function updateCards(columnIndex, cards) {
 }
 
 updateCards(1, cards.backlog);
-// createCard(cards[0]);
+
 
 const handleCardSave = () => {
   const title = document.getElementById("title").value;
@@ -130,16 +130,11 @@ const handleCardSave = () => {
   const state = document.getElementById("state").value;
   const deadline = document.getElementById("deadline").value;
 
-  // validarTitleModal(title);
-  // validarDescriptionModal(description)
-  // // validarAssignedModal(assigned);
-  // validarDeadLineModal(deadline);
-
   const esValidoTitle = validarTitleModal(title);
   const esValidoDescription = validarDescriptionModal(description);
   const esValidoDeadLine = validarDeadLineModal(deadline);
 
-  // Si alguna de las validaciones falla, no se debe continuar
+
   if (!esValidoTitle || !esValidoDescription || !esValidoDeadLine) {
     return;
   }
@@ -151,7 +146,6 @@ const handleCardSave = () => {
 
 const errorTitle = document.getElementById("errorTitle");
 const errorDescription = document.getElementById("errorDescription");
-// const errorAssigned = document.getElementById("errorAssigned");
 const errorDeadLine = document.getElementById("errorDeadLine");
 
 function moveCard(cardId, targetColumn) {
@@ -195,7 +189,7 @@ function validarDescriptionModal(description) {
 }
 
 function validarDeadLineModal(deadLine) {
-  // Verificar si se ha seleccionado una fecha válida
+
   if (deadLine === "") {
     errorDeadLine.textContent = "Debe seleccionar una fecha.";
     return false;
@@ -205,12 +199,4 @@ function validarDeadLineModal(deadLine) {
   }
 }
 
-// function validarAssignedModal(assigned) {
-//   if (assigned === "") {
-//     errorAssigned.textContent = "Debe seleccionar una opción.";
-//     return false;
-//   } else {
-//     errorAssigned.textContent = "";
-//     return true;
-//   }
-// }
+

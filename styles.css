@@ -47,9 +47,6 @@ body {
 
 .error {
   color: red;
-  /* Cambia el color del texto a rojo */
   font-weight: bold;
-  /* Hace el texto en negrita */
   margin-top: 5px;
-  /* Añade un pequeño margen arriba para separación */
 }
