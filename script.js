@@ -23,9 +23,16 @@ document.getElementById("done"),
 
 const backgroundColors = ['has-background-dark',
   'has-background-info',
-  'has-background-warnin',
+  'has-background-warning',
   'has-background-danger',
   'has-background-success'
+]
+
+const fontColors = ["has-text-white",
+  "has-text-white",
+  "has-text-white",
+  "has-text-white",
+  "has-text-white"
 ]
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -109,7 +116,9 @@ function updateCards(columnIndex, cards) {
     div.classList.add('draggable');
     div.classList.add('card');
 
-    div.classList.add(backgroundColors[columnIndex]);
+    div.classList.add(backgroundColors[columnIndex-1]);
+    h5.classList.add(fontColors[columnIndex-1]);
+    paragraph.classList.add(fontColors[columnIndex-1]);
 
     div.draggable = true;
 

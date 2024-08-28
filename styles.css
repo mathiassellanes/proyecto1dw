@@ -22,6 +22,10 @@ body {
   align-items: center;
 }
 
+.card {
+  width:80%;
+}
+
 .cardTitle {
   font-size: 12px;
 }
