@@ -3,7 +3,8 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: #c7c7c7;
+  /*No logro que ande
+   background-color: #c7c7c7; */
 }
 
 .title, .interstice {
@@ -38,6 +39,7 @@ body {
 .cardDescription {
   font-size: 15px;
 }
+
 
 @media screen and (min-width:425px) and (max-width: 768px) {
   .column:nth-child(4),

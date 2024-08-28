@@ -95,7 +95,8 @@ function updateCards(columnIndex, cards) {
 
   console.log({ cards, columnIndex });
 
-  cards.forEach((card) => {
+  // Use map to create an array of card elements
+  const cardElements = cards.map((card) => {
     const cardTemplate = document.querySelector("#card");
 
     const h = cardTemplate.content.querySelector("h5");
@@ -116,20 +117,19 @@ function updateCards(columnIndex, cards) {
     div.classList.add('draggable');
     div.classList.add('card');
 
-    div.classList.add(backgroundColors[columnIndex-1]);
-    h5.classList.add(fontColors[columnIndex-1]);
-    paragraph.classList.add(fontColors[columnIndex-1]);
+    div.classList.add(backgroundColors[columnIndex - 1]);
+    h5.classList.add(fontColors[columnIndex - 1]);
+    paragraph.classList.add(fontColors[columnIndex - 1]);
 
     div.draggable = true;
-
     div.id = card.id;
 
-    col.appendChild(clone);
+    return clone; // Return the cloned element
   });
-}
 
-updateCards(1, cards.backlog);
-// createCard(cards[0]);
+  // Append each element from the mapped array to the column
+  cardElements.forEach(cardElement => col.appendChild(cardElement));
+}
 
 const handleCardSave = () => {
   const title = document.getElementById("title").value;
@@ -140,7 +140,7 @@ const handleCardSave = () => {
   const deadline = document.getElementById("deadline").value;
 
   validarTitleModal(title);
-  validarDescriptionModal(description)
+  validarDescriptionModal(description);
   validarAssignedModal(assigned);
 
   console.log({ title, description, assigned, priority, state, deadline });
