@@ -19,19 +19,13 @@ function dragLeave(e) {
 function dragOver(e) {
   e.preventDefault();
   e.dataTransfer.dropEffect = 'move';
+
   return false;
 }
 
 function dragDrop(e) {
   e.preventDefault();
   e.stopPropagation();
-
-  // if (dragSrcEl !== this) {
-  //   dragSrcEl.innerHTML = this.innerHTML;
-  //   this.innerHTML = e.dataTransfer.getData('text/html');
-  // }
-  console.log(dragSrcEl)
-
 
   this.classList.remove('over');
 }
@@ -53,17 +47,25 @@ function addEventsDragAndDrop(el) {
   el.addEventListener('dragend', dragEnd, false);
 }
 
-const listItens = document.querySelectorAll('.draggable');
 const columnsSelection = document.querySelectorAll('.column');
 
-listItens.forEach(function (item) {
-  addEventsDragAndDrop(item);
-});
+const reAddEvents = () => {
+  const listItens = document.querySelectorAll('.draggable');
+
+  console.log({ listItens, columnsSelection });
+
+  listItens.forEach(function (item) {
+    addEventsDragAndDrop(item);
+  });
+}
+
+reAddEvents();
 
 columnsSelection.forEach(function (column) {
   column.addEventListener('dragover', dragOver, false);
   column.addEventListener('drop', function (e) {
     e.preventDefault();
+    console.log('drop', e);
 
     moveCard(dragSrcEl.id, column.id);
 

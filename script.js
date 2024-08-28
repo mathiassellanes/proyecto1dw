@@ -35,46 +35,44 @@ const fontColors = ["has-text-white",
   "has-text-white"
 ]
 
-document.addEventListener('DOMContentLoaded', () => {
 
-  function openModal($el) {
-    console.log({ $el });
-    $el.classList.add('is-active');
-  }
+function openModal($el) {
+  console.log({ $el });
+  $el.classList.add('is-active');
+}
 
-  function closeModal($el) {
-    $el.classList.remove('is-active');
-  }
+function closeModal($el) {
+  $el.classList.remove('is-active');
+}
 
-  function closeAllModals() {
-    (document.querySelectorAll('.modal') || []).forEach(($modal) => {
-      closeModal($modal);
-    });
-  }
-
-  const $target = document.querySelector(".js-modal-trigger");
-
-  const $modal = document.querySelector('#addcard');
-
-  $target.addEventListener('click', () => {
-    openModal($modal);
+function closeAllModals() {
+  (document.querySelectorAll('.modal') || []).forEach(($modal) => {
+    closeModal($modal);
   });
+}
+
+const $target = document.querySelector(".js-modal-trigger");
+
+const $modal = document.querySelector('#addcard');
+
+$target.addEventListener('click', () => {
+  openModal($modal);
+});
 
 
-  (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
-    const $target = $close.closest('.modal');
+// (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
+//   const $target = $close.closest('.modal');
 
-    $close.addEventListener('click', () => {
-      closeModal($target);
-    });
-  });
+//   $close.addEventListener('click', () => {
+//     closeModal($target);
+//   });
+// });
 
 
-  document.addEventListener('keydown', (event) => {
-    if (event.key === "Escape") {
-      closeAllModals();
-    }
-  });
+document.addEventListener('keydown', (event) => {
+  if (event.key === "Escape") {
+    closeAllModals();
+  }
 });
 
 function createCard({ title, description, assigned, priority, state, deadline }) {
@@ -92,8 +90,6 @@ function updateCards(columnIndex, cards) {
   console.log({ col });
   const previousCards = col.querySelectorAll(".draggable");
   previousCards.forEach(element => element.remove());
-
-  console.log({ cards, columnIndex });
 
   cards.forEach((card) => {
     const cardTemplate = document.querySelector("#card");
@@ -116,9 +112,9 @@ function updateCards(columnIndex, cards) {
     div.classList.add('draggable');
     div.classList.add('card');
 
-    div.classList.add(backgroundColors[columnIndex-1]);
-    h5.classList.add(fontColors[columnIndex-1]);
-    paragraph.classList.add(fontColors[columnIndex-1]);
+    div.classList.add(backgroundColors[columnIndex - 1]);
+    h5.classList.add(fontColors[columnIndex - 1]);
+    paragraph.classList.add(fontColors[columnIndex - 1]);
 
     div.draggable = true;
 
@@ -126,31 +122,50 @@ function updateCards(columnIndex, cards) {
 
     col.appendChild(clone);
   });
+
+  reAddEvents();
 }
 
 updateCards(1, cards.backlog);
 
-
 const handleCardSave = () => {
-  const title = document.getElementById("title").value;
-  const description = document.getElementById("description").value;
-  const assigned = document.getElementById("assigned").value;
-  const priority = document.getElementById("priority").value;
-  const state = document.getElementById("state").value;
-  const deadline = document.getElementById("deadline").value;
+  const title = document.getElementById("title");
+  const description = document.getElementById("description");
+  const assigned = document.getElementById("assigned");
+  const priority = document.getElementById("priority");
+  const state = document.getElementById("state");
+  const deadline = document.getElementById("deadline");
 
-  const esValidoTitle = validarTitleModal(title);
-  const esValidoDescription = validarDescriptionModal(description);
-  const esValidoDeadLine = validarDeadLineModal(deadline);
+  const esValidoTitle = validarTitleModal(title.value);
+  const esValidoDescription = validarDescriptionModal(description.value);
+  const esValidoDeadLine = validarDeadLineModal(deadline.value);
 
 
   if (!esValidoTitle || !esValidoDescription || !esValidoDeadLine) {
     return;
   }
 
-  console.log({ title, description, assigned, priority, state, deadline });
+  createCard({
+    title: title.value,
+    description: description.value,
+    assigned: assigned.value,
+    priority: priority.value,
+    state: state.value,
+    deadline: deadline.value,
+  });
 
-  createCard({ title, description, assigned, priority, state, deadline });
+  title.value = "";
+  description.value = "";
+  assigned.value = "Opción 1";
+  priority.value = "Alta";
+  state.value = "backlog";
+  deadline.value = "";
+
+  closeAllModals();
+}
+
+const handleCardCancel = () => {
+  closeAllModals();
 }
 
 const errorTitle = document.getElementById("errorTitle");
@@ -207,5 +222,3 @@ function validarDeadLineModal(deadLine) {
     return true;
   }
 }
-
-
