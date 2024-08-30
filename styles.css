@@ -7,13 +7,14 @@ body {
 }
 
 .title, .interstice {
-  background-color: #c7c7c7;
+  /* background-color: #c7c7c7; */
 }
 
 .columns {
   display: flex;
   flex-wrap: wrap;
   height: 100%;
+  gap: 5px;
   justify-content: center;
 }
 
@@ -22,7 +23,7 @@ body {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  flex-basis: 20%;
+  flex-basis: calc(20% - 10px);
   align-items: center;
   background-color: #f5f5f5;
 }
@@ -31,18 +32,20 @@ body {
   width:80%;
 }
 
-.cardTitle {
-  font-size: 12px;
-}
-
-.cardDescription {
-  font-size: 15px;
+.card {
+  width: 100%;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
 }
 
 @media screen and (min-width:425px) and (max-width: 768px) {
+
   .column:nth-child(4),
   .column:nth-child(5) {
-    flex-basis: 50%;
+    flex-basis: calc(50% - 20px);
   }
 }
 
@@ -50,5 +53,17 @@ body {
   .columns {
     flex-direction: column;
     align-items: center;
+    gap: 10px;
   }
+
+  .column {
+    flex-basis: inherit;
+    width: 90%;
+  }
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+  margin-top: 5px;
 }
