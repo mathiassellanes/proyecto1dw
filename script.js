@@ -35,46 +35,44 @@ const fontColors = ["has-text-white",
   "has-text-white"
 ]
 
-document.addEventListener('DOMContentLoaded', () => {
-  // Functions to open and close a modal
-  function openModal($el) {
-    console.log({ $el });
-    $el.classList.add('is-active');
-  }
 
-  function closeModal($el) {
-    $el.classList.remove('is-active');
-  }
+function openModal($el) {
+  console.log({ $el });
+  $el.classList.add('is-active');
+}
 
-  function closeAllModals() {
-    (document.querySelectorAll('.modal') || []).forEach(($modal) => {
-      closeModal($modal);
-    });
-  }
+function closeModal($el) {
+  $el.classList.remove('is-active');
+}
 
-  const $target = document.querySelector(".js-modal-trigger");
-
-  const $modal = document.querySelector('#addcard');
-
-  $target.addEventListener('click', () => {
-    openModal($modal);
+function closeAllModals() {
+  (document.querySelectorAll('.modal') || []).forEach(($modal) => {
+    closeModal($modal);
   });
+}
 
-  // Add a click event on various child elements to close the parent modal
-  (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
-    const $target = $close.closest('.modal');
+const $target = document.querySelector(".js-modal-trigger");
 
-    $close.addEventListener('click', () => {
-      closeModal($target);
-    });
-  });
+const $modal = document.querySelector('#addcard');
 
-  // Add a keyboard event to close all modals
-  document.addEventListener('keydown', (event) => {
-    if (event.key === "Escape") {
-      closeAllModals();
-    }
-  });
+$target.addEventListener('click', () => {
+  openModal($modal);
+});
+
+
+// (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
+//   const $target = $close.closest('.modal');
+
+//   $close.addEventListener('click', () => {
+//     closeModal($target);
+//   });
+// });
+
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === "Escape") {
+    closeAllModals();
+  }
 });
 
 function createCard({ title, description, assigned, priority, state, deadline }) {
@@ -88,15 +86,12 @@ function createCard({ title, description, assigned, priority, state, deadline })
 }
 
 function updateCards(columnIndex, cards) {
-  const col = columns[columnIndex - 1]; // Adjusting for 0-based index
+  const col = columns[columnIndex - 1];
   console.log({ col });
-  const previousCards = col.querySelectorAll(".draggable"); // Assuming the class is used for cards
+  const previousCards = col.querySelectorAll(".draggable");
   previousCards.forEach(element => element.remove());
 
-  console.log({ cards, columnIndex });
-
-  // Use map to create an array of card elements
-  const cardElements = cards.map((card) => {
+  cards.forEach((card) => {
     const cardTemplate = document.querySelector("#card");
 
     const h = cardTemplate.content.querySelector("h5");
@@ -122,35 +117,60 @@ function updateCards(columnIndex, cards) {
     paragraph.classList.add(fontColors[columnIndex - 1]);
 
     div.draggable = true;
+
     div.id = card.id;
 
-    return clone; // Return the cloned element
+    col.appendChild(clone);
   });
 
-  // Append each element from the mapped array to the column
-  cardElements.forEach(cardElement => col.appendChild(cardElement));
+  reAddEvents();
 }
 
+updateCards(1, cards.backlog);
+
 const handleCardSave = () => {
-  const title = document.getElementById("title").value;
-  const description = document.getElementById("description").value;
-  const assigned = document.getElementById("assigned").value;
-  const priority = document.getElementById("priority").value;
-  const state = document.getElementById("state").value;
-  const deadline = document.getElementById("deadline").value;
+  const title = document.getElementById("title");
+  const description = document.getElementById("description");
+  const assigned = document.getElementById("assigned");
+  const priority = document.getElementById("priority");
+  const state = document.getElementById("state");
+  const deadline = document.getElementById("deadline");
 
-  validarTitleModal(title);
-  validarDescriptionModal(description);
-  validarAssignedModal(assigned);
+  const esValidoTitle = validarTitleModal(title.value);
+  const esValidoDescription = validarDescriptionModal(description.value);
+  const esValidoDeadLine = validarDeadLineModal(deadline.value);
 
-  console.log({ title, description, assigned, priority, state, deadline });
 
-  createCard({ title, description, assigned, priority, state, deadline });
+  if (!esValidoTitle || !esValidoDescription || !esValidoDeadLine) {
+    return;
+  }
+
+  createCard({
+    title: title.value,
+    description: description.value,
+    assigned: assigned.value,
+    priority: priority.value,
+    state: state.value,
+    deadline: deadline.value,
+  });
+
+  title.value = "";
+  description.value = "";
+  assigned.value = "Opción 1";
+  priority.value = "Alta";
+  state.value = "backlog";
+  deadline.value = "";
+
+  closeAllModals();
+}
+
+const handleCardCancel = () => {
+  closeAllModals();
 }
 
 const errorTitle = document.getElementById("errorTitle");
 const errorDescription = document.getElementById("errorDescription");
-const errorAssigned = document.getElementById("errorAssigned");
+const errorDeadLine = document.getElementById("errorDeadLine");
 
 function moveCard(cardId, targetColumn) {
   const card = Object.values(cards).flat().find(card => card.id === cardId);
@@ -192,12 +212,13 @@ function validarDescriptionModal(description) {
   }
 }
 
-function validarAssignedModal(assigned) {
-  if (assigned === "") {
-    errorAssigned.textContent = "Debe seleccionar una opción.";
+function validarDeadLineModal(deadLine) {
+
+  if (deadLine === "") {
+    errorDeadLine.textContent = "Debe seleccionar una fecha.";
     return false;
   } else {
-    errorAssigned.textContent = "";
+    errorDeadLine.textContent = "";
     return true;
   }
 }
