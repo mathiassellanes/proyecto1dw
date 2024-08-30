@@ -91,7 +91,9 @@ function updateCards(columnIndex, cards) {
   const previousCards = col.querySelectorAll(".draggable");
   previousCards.forEach(element => element.remove());
 
+
   cards.forEach((card) => {
+
     const cardTemplate = document.querySelector("#card");
 
     const h = cardTemplate.content.querySelector("h5");
@@ -117,16 +119,10 @@ function updateCards(columnIndex, cards) {
     paragraph.classList.add(fontColors[columnIndex - 1]);
 
     div.draggable = true;
-
     div.id = card.id;
 
-    col.appendChild(clone);
+    return clone; // Return the cloned element
   });
-
-  reAddEvents();
-}
-
-updateCards(1, cards.backlog);
 
 const handleCardSave = () => {
   const title = document.getElementById("title");
@@ -140,19 +136,6 @@ const handleCardSave = () => {
   const esValidoDescription = validarDescriptionModal(description.value);
   const esValidoDeadLine = validarDeadLineModal(deadline.value);
 
-
-  if (!esValidoTitle || !esValidoDescription || !esValidoDeadLine) {
-    return;
-  }
-
-  createCard({
-    title: title.value,
-    description: description.value,
-    assigned: assigned.value,
-    priority: priority.value,
-    state: state.value,
-    deadline: deadline.value,
-  });
 
   title.value = "";
   description.value = "";
