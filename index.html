@@ -9,12 +9,12 @@
   <title>Document</title>
 </head>
 
-<body class="has-background-white has-text-black">
-  <h1 class="title has-text-black has-text-centered">
+<body class="has-text-black">
+  <h1 class="title has-text-black has-text-centered mt-5">
     GESTOR DE TAREAS
   </h1>
   <div class="interstice is-flex is-justify-content-end pr-3">
-    <button class="interstice js-modal-trigger button" data-target="modal-js-example">
+    <button class="interstice js-modal-trigger button mb-5" data-target="modal-js-example">
       Agregar tarea
     </button>
   </div>
@@ -86,22 +86,32 @@
     <div class="modal-card">
       <header class="modal-card-head">
         <p class="modal-card-title">Modal title</p>
-        <button class="delete" aria-label="close"></button>
+        <button onclick="handleCardCancel()" class="delete" aria-label="close"></button>
       </header>
-      <form>
-        <section class="modal-card-body grid fixed-grid has-2-cols">
-          <div class="field">
-            <label class="label">Nombre de la tarea</label>
-            <div class="control">
-              <input class="input" id="title" type="text" placeholder="Text input">
-              <span id="errorTitle" class="error"></span>
-            </div>
+      <form class="modal-card-body">
+        <label class="label">Nombre de la tarea</label>
+        <div class="control">
+          <input class="input" id="title" type="text" placeholder="Text input">
+          <span id="errorTitle" class="error"></span>
+        </div>
+        <div class="field">
+          <label class="label">Descripción de la tarea</label>
+          <div class="control">
+            <textarea id="description" class="input" placeholder="Textarea"></textarea>
+            <span id="errorDescription" class="error"></span>
           </div>
-          <div class="field">
-            <label class="label">Descripción de la tarea</label>
-            <div class="control">
-              <textarea id="description" class="textarea" placeholder="Textarea"></textarea>
-              <span id="errorDescription" class="error"></span>
+        </div>
+        <div class="field">
+          <label class="label">Estado</label>
+          <div class="control">
+            <div class="select">
+              <select id="state">
+                <option value="backlog">Backlog</option>
+                <option value="todo">TO DO</option>
+                <option value="inProgress">In Progress</option>
+                <option value="blocked">Blocked</option>
+                <option value="done">Done</option>
+              </select>
             </div>
           </div>
           <div class="field">
@@ -114,7 +124,7 @@
                   <option>Opción 3</option>
                 </select>
               </div>
-              <span id="errorAssigned" class="error"></span>
+
             </div>
           </div>
           <div class="field">
@@ -130,31 +140,19 @@
             </div>
           </div>
           <div class="field">
-            <label class="label">Estado</label>
-            <div class="control">
-              <div class="select">
-                <select id="state">
-                  <option value="backlog">Backlog</option>
-                  <option value="todo">TO DO</option>
-                  <option value="inProgress">In Progress</option>
-                  <option value="blocked">Blocked</option>
-                  <option value="done">Done</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="field">
             <label class="label">Fecha Límite</label>
             <div class="control">
               <input id="deadline" class="input" type="date">
+              <span id="errorDeadLine" class="error"></span>
             </div>
           </div>
+        </div>
 
         </section>
         <footer class="modal-card-foot">
           <div class="buttons">
             <button onclick="handleCardSave()" type="button" class="button is-success">Guardar cambios</button>
-            <button class="button">Cancelar</button>
+            <button onclick="handleCardCancel()" type="button" class="button">Cancelar</button>
           </div>
         </footer>
       </form>
@@ -169,8 +167,8 @@
   </template>
 
 
-  <script src="script.js"></script>
-  <script src="dragHelpers.js"></script>
+  <script src="dragHelpers.js" defer></script>
+  <script src="script.js" defer></script>
 </body>
 
 </html>
