@@ -97,6 +97,24 @@ const reAddEvents = () => {
   listItens.forEach(function (item) {
     addEventsDragAndDrop(item);
   });
+
+
+  const currentEditIcons = document.querySelectorAll('.editIcon');
+
+  currentEditIcons.forEach(function(icon) {
+    icon.addEventListener('mouseover', () => {
+      icon.style.opacity = '1';
+      icon.style.cursor = 'pointer'; 
+    });
+    icon.addEventListener('mouseout', () => {
+      icon.style.opacity = '0.3';
+    })
+    icon.addEventListener('click',()=> {
+      clickCard(icon.parentElement.parentElement)
+    });
+  });
+
+  
 }
 
 reAddEvents();
