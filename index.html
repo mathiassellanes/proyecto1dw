@@ -10,9 +10,16 @@
 </head>
 
 <body class="has-text-black">
-  <h1 class="title has-text-black has-text-centered mt-5">
-    GESTOR DE TAREAS
-  </h1>
+  <div style="position: relative;">
+    <h1 class="title has-text-black has-text-centered mt-5">
+      GESTOR DE TAREAS
+    </h1>
+    <button class="button mb-5" id="toggle-dark-mode">
+      <span class="icon is-small">
+        <img id="toggle-image" src="moon-solid.svg">
+      </span>
+    </button>
+  </div>
   <div class="interstice is-flex is-justify-content-end pr-3">
     <button class="interstice js-modal-trigger button mb-5" data-target="modal-js-example">
       Agregar tarea
@@ -89,8 +96,8 @@
         <button onclick="handleCardCancel()" class="delete" aria-label="close"></button>
       </header>
       <form class="modal-card-body">
-        <label class="label">Nombre de la tarea</label>
         <div class="control">
+          <label class="label">Nombre de la tarea</label>
           <input class="input" id="title" type="text" placeholder="Text input">
           <span id="errorTitle" class="error"></span>
         </div>
@@ -101,9 +108,9 @@
             <span id="errorDescription" class="error"></span>
           </div>
         </div>
-        <div class="field">
-          <label class="label">Estado</label>
+        <div class="field is-flex is-justify-content-space-between">
           <div class="control">
+            <label class="label">Estado</label>
             <div class="select">
               <select id="state">
                 <option value="backlog">Backlog</option>
@@ -139,21 +146,19 @@
               </div>
             </div>
           </div>
-          <div class="field">
-            <label class="label">Fecha Límite</label>
-            <div class="control">
-              <input id="deadline" class="input" type="date">
-              <span id="errorDeadLine" class="error"></span>
-            </div>
+        </div>
+        <div class="field">
+          <label class="label">Fecha Límite</label>
+          <div class="control">
+            <input id="deadline" class="input" type="date">
+            <span id="errorDeadLine" class="error"></span>
           </div>
         </div>
 
         </section>
-        <footer class="modal-card-foot">
-          <div class="buttons">
-            <button onclick="handleCardSave()" type="button" class="button is-success">Guardar cambios</button>
-            <button onclick="handleCardCancel()" type="button" class="button">Cancelar</button>
-          </div>
+        <footer class="py-2 is-flex is-justify-content-space-between">
+          <button onclick="handleCardCancel()" type="button" class="button">Cancelar</button>
+          <button onclick="handleCardSave()" type="button" class="button is-success">Guardar cambios</button>
         </footer>
       </form>
     </div>
@@ -169,6 +174,7 @@
 
   <script src="dragHelpers.js" defer></script>
   <script src="script.js" defer></script>
+  <script src="darkLightMode.js" defer></script>
 </body>
 
 </html>
