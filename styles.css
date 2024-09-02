@@ -38,18 +38,14 @@ html {
   margin: 10px;
   padding: 10px;
   padding-top: 30px;
-  /* Espacio superior adicional para el campo de prioridad */
   border: 1px solid #ccc;
   border-radius: 5px;
   text-align: center;
   position: relative;
-  /* Para el posicionamiento de elementos dentro de la tarjeta */
   min-height: 150px;
-  /* Puedes ajustar esta altura según sea necesario */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* Distribuye los elementos verticalmente */
   height: 40%;
 }
 
@@ -120,13 +116,9 @@ body.dark-mode .level-item h2 {
 .card-header .priority {
   position: absolute;
   top: 5px;
-  /* Más cerca del borde superior de la tarjeta */
   left: 10px;
   font-size: 11px;
-  /* Tamaño más pequeño */
   text-align: left;
-  /* display: flex;
-  align-items: center; */
 }
 
 .card-header .priority img {
@@ -134,20 +126,14 @@ body.dark-mode .level-item h2 {
   height: 12px;
   vertical-align: middle;
   margin-left: 5px;
-  /* Espaciado entre el texto y el icono */
 }
 
 .card-footer .deadline {
-
   position: absolute;
   bottom: 5px;
-  /* Ajustado para posicionar en la parte inferior derecha */
   left: 10px;
-  /* Alineado a la izquierda, como la prioridad */
   font-size: 11px;
   text-align: left;
-  /* display: flex;
-  align-items: center; */
 }
 
 .card-footer .deadline img {
@@ -155,7 +141,6 @@ body.dark-mode .level-item h2 {
   height: 12px;
   vertical-align: middle;
   margin-left: 5px;
-  /* Espaciado entre el texto y el icono */
 }
 
 .card-header {
