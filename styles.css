@@ -24,7 +24,6 @@ html {
   justify-content: center;
 }
 
-
 .column {
   display: flex;
   flex-direction: column;
@@ -35,16 +34,19 @@ html {
 }
 
 .card {
-  width: 80%;
-}
-
-.card {
-  width: 100%;
+  width: 95%;
   margin: 10px;
   padding: 10px;
+  padding-top: 30px;
   border: 1px solid #ccc;
   border-radius: 5px;
   text-align: center;
+  position: relative;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 40%;
 }
 
 @media screen and (min-width:425px) and (max-width: 768px) {
@@ -109,4 +111,57 @@ body.dark-mode .button {
 body.dark-mode .title,
 body.dark-mode .level-item h2 {
   color: #e0e0e0 !important;
+}
+/* Posicionamiento y tamaño del texto de prioridad y fecha con iconos */
+.card-header .priority {
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  font-size: 11px;
+  text-align: left;
+}
+
+.card-header .priority img {
+  width: 12px;
+  height: 12px;
+  vertical-align: middle;
+  margin-left: 5px;
+}
+
+.card-footer .deadline {
+  position: absolute;
+  bottom: 5px;
+  left: 10px;
+  font-size: 11px;
+  text-align: left;
+}
+
+.card-footer .deadline img {
+  width: 12px;
+  height: 12px;
+  vertical-align: middle;
+  margin-left: 5px;
+}
+
+.card-header {
+  font-size: 0.9em;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.card-footer {
+  font-size: 0.8em;
+  margin-top: 10px;
+  text-align: right;
+  border-top: none;
+}
+
+.text-highlight {
+  font-weight: bold;
+  color: #ffffff;
+  /* Color blanco para resaltar en la mayoría de los fondos */
+  padding: 2px 5px;
+  border-radius: 3px;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Fondo semi-transparente */
 }

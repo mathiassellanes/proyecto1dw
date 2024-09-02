@@ -1,13 +1,5 @@
 const cards = {
-  backlog: [{
-    id: crypto.randomUUID(),
-    title: "Card 1",
-    description: "This is a description for card 1",
-    assigned: "John Doe",
-    priority: "High",
-    state: "backlog",
-    deadline: "2021-12-31",
-  }],
+  backlog: [],
   todo: [],
   inProgress: [],
   blocked: [],
@@ -53,7 +45,6 @@ const fontColors = ["has-text-white",
   "has-text-white"
 ]
 
-
 function openModal($el) {
   $el.classList.add('is-active');
 }
@@ -69,22 +60,11 @@ function closeAllModals() {
 }
 
 const $target = document.querySelector(".js-modal-trigger");
-
 const $modal = document.querySelector('#addcard');
 
 $target.addEventListener('click', () => {
   openModal($modal);
 });
-
-
-// (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
-//   const $target = $close.closest('.modal');
-
-//   $close.addEventListener('click', () => {
-//     closeModal($target);
-//   });
-// });
-
 
 document.addEventListener('keydown', (event) => {
   if (event.key === "Escape") {
@@ -113,9 +93,23 @@ function updateCards(columnIndex, cards) {
     const h = cardTemplate.content.querySelector("h5");
     const p = cardTemplate.content.querySelector("p");
     const editIcon = cardTemplate.content.querySelector("figure");
+    const prioritySpan = cardTemplate.content.querySelector(".priority");
+    const deadlineSpan = cardTemplate.content.querySelector(".deadline");
+
+    const translatedPriority = card.priority;
 
     h.textContent = card.title;
     p.textContent = card.description;
+
+    // Configurar el texto y el ícono de prioridad
+    prioritySpan.innerHTML = `
+      Prioridad: ${translatedPriority}
+      <img src="Icon-Flag.png" alt="Priority flag icon">`;
+
+    // Configurar el texto y el ícono de fecha límite
+    deadlineSpan.innerHTML = `
+      Fecha: ${card.deadline}
+      <img src="Icon-Calendar.png" alt="Calendar icon">`;
 
     const clone = document.importNode(cardTemplate.content, true);
 
@@ -123,18 +117,11 @@ function updateCards(columnIndex, cards) {
     const h5 = div.querySelector("h5");
     const paragraph = div.querySelector("p");
 
-    h5.classList.add("is-size-5");
-    paragraph.classList.add("is-size-6");
-
-    div.classList.add('draggable');
-    div.classList.add('card');
-
     div.classList.add(backgroundColors[columnIndex - 1]);
     h5.classList.add(fontColors[columnIndex - 1]);
     paragraph.classList.add(fontColors[columnIndex - 1]);
 
     div.draggable = true;
-
     div.id = card.id;
 
     editIcon.id = "edit" + card.id;
@@ -157,7 +144,6 @@ const handleCardSave = () => {
   const esValidoTitle = validarTitleModal(title.value);
   const esValidoDescription = validarDescriptionModal(description.value);
   const esValidoDeadLine = validarDeadLineModal(deadline.value);
-
 
   if (!esValidoTitle || !esValidoDescription || !esValidoDeadLine) {
     return;
@@ -239,7 +225,6 @@ function validarDescriptionModal(description) {
 }
 
 function validarDeadLineModal(deadLine) {
-
   if (deadLine === "") {
     errorDeadLine.textContent = "Debe seleccionar una fecha.";
     return false;
