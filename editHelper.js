@@ -14,7 +14,6 @@ function findCardById(cards, id) {
 
 
 function clickCard(card) {
-    console.log(card);
     const modal = document.getElementById("edit-card");
     modal.classList.add("is-active");
 
@@ -26,8 +25,6 @@ function clickCard(card) {
     const deadline = document.getElementById("edit-deadline");
 
     currentCard = findCardById(cards, card.id);
-
-    console.log(currentCard);
     
     title.value = currentCard.title;
     description.value = currentCard.description;
