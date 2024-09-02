@@ -39,7 +39,6 @@ document.getElementById("blocked"),
 document.getElementById("done"),
 ]
 
-
 const backgroundColors = ['has-background-dark',
   'has-background-info',
   'has-background-warning',
