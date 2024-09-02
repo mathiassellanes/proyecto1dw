@@ -71,7 +71,5 @@ const handleCardSaveEdit = () => {
     deadline.value = "";
 
     closeAllModals();
-
-    
 }
 
