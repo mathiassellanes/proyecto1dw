@@ -10,9 +10,9 @@ function toggleDarkMode() {
   const img = document.getElementById('toggle-image');
 
   if (isDarkMode) {
-    img.src = './sun-solid.svg';
+    img.src = 'assets/sun-solid.svg';
   } else {
-    img.src = './moon-solid.svg';
+    img.src = 'assets/moon-solid.svg';
   }
 }
 
@@ -25,9 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const img = document.getElementById('toggle-image');
 
   if (darkModePreference === 'true') {
-    img.src = './sun-solid.svg';
+    img.src = 'assets/sun-solid.svg';
   } else {
-    img.src = './moon-solid.svg';
+    img.src = 'assets/moon-solid.svg';
   }
 
   toggleDarkModeBtn.addEventListener('click', toggleDarkMode);

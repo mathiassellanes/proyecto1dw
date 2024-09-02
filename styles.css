@@ -1,8 +1,18 @@
+:root {
+  --background-color: #c7c7c7;
+  --column-background-color: #f5f5f5;
+  --dark-color: #e0e0e0;
+  --background-dark-color: #121212;
+  --text-dark-color: #333;
+  --text-dark-color-darker: #555;
+  --button-dark-background: #666;
+}
+
 body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: #c7c7c7;
+  background-color: var(--background-color);
 }
 
 html {
@@ -30,7 +40,8 @@ html {
   flex-grow: 1;
   flex-basis: calc(20% - 10px);
   align-items: center;
-  background-color: #f5f5f5;
+  background-color: var(--column-background-color);
+  border-radius: 5px;
 }
 
 .card {
@@ -45,8 +56,6 @@ html {
   min-height: 150px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 40%;
 }
 
 @media screen and (min-width:425px) and (max-width: 768px) {
@@ -78,41 +87,41 @@ html {
 
 body.dark-mode,
 html.dark-mode {
-  background-color: #121212;
-  color: #e0e0e0;
+  background-color: var(--background-dark-color);
+  color: var(--dark-color);
 }
 
 body.dark-mode .column {
-  background-color: #333;
+  background-color: var(--text-dark-color);
 }
 
 body.dark-mode .card {
   background-color: #444;
-  border-color: #555;
+  border-color: var(--text-dark-color-darker);
 }
 
 body.dark-mode .modal-card {
-  background-color: #333;
-  color: #e0e0e0;
+  background-color: var(--text-dark-color);
+  color: var(--dark-color);
 }
 
 body.dark-mode .input,
 body.dark-mode .textarea,
 body.dark-mode .select select {
-  background-color: #555;
-  color: #e0e0e0;
+  background-color: var(--text-dark-color-darker);
+  color: var(--dark-color);
 }
 
 body.dark-mode .button {
-  background-color: #666;
-  color: #e0e0e0;
+  background-color: var(--button-dark-background);
+  color: var(--dark-color);
 }
 
 body.dark-mode .title,
 body.dark-mode .level-item h2 {
-  color: #e0e0e0 !important;
+  color: var(--dark-color) !important;
 }
-/* Posicionamiento y tamaño del texto de prioridad y fecha con iconos */
+
 .card-header .priority {
   position: absolute;
   top: 5px;
@@ -146,7 +155,7 @@ body.dark-mode .level-item h2 {
 .card-header {
   font-size: 0.9em;
   margin-bottom: 10px;
-  text-align: left;
+  box-shadow: none;
 }
 
 .card-footer {
@@ -159,9 +168,24 @@ body.dark-mode .level-item h2 {
 .text-highlight {
   font-weight: bold;
   color: #ffffff;
-  /* Color blanco para resaltar en la mayoría de los fondos */
   padding: 2px 5px;
   border-radius: 3px;
   background-color: rgba(0, 0, 0, 0.5);
-  /* Fondo semi-transparente */
+}
+
+.is-20x20 {
+  width: 20px;
+  height: 20px;
+}
+
+.edit-icon {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  opacity: 0.3;
+
+  &:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
 }

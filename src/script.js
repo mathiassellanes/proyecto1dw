@@ -83,6 +83,8 @@ function createCard({ title, description, assigned, priority, state, deadline })
 }
 
 function updateCards(columnIndex, cards) {
+  console.log(columnIndex, cards);
+
   const col = columns[columnIndex - 1];
   const previousCards = col.querySelectorAll(".draggable");
   previousCards.forEach(element => element.remove());
@@ -104,12 +106,12 @@ function updateCards(columnIndex, cards) {
     // Configurar el texto y el ícono de prioridad
     prioritySpan.innerHTML = `
       Prioridad: ${translatedPriority}
-      <img src="Icon-Flag.png" alt="Priority flag icon">`;
+      <img src="assets/Icon-Flag.png" alt="Priority flag icon">`;
 
     // Configurar el texto y el ícono de fecha límite
     deadlineSpan.innerHTML = `
       Fecha: ${card.deadline}
-      <img src="Icon-Calendar.png" alt="Calendar icon">`;
+      <img src="assets/Icon-Calendar.png" alt="Calendar icon">`;
 
     const clone = document.importNode(cardTemplate.content, true);
 
@@ -160,7 +162,7 @@ const handleCardSave = () => {
 
   title.value = "";
   description.value = "";
-  assigned.value = "Opción 1";
+  assigned.value = "";
   priority.value = "Alta";
   state.value = "backlog";
   deadline.value = "";
