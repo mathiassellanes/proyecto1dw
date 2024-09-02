@@ -32,9 +32,6 @@ function clickCard(card) {
     priority.value = currentCard.priority;
     state.value = currentCard.state;
     deadline.value = currentCard.deadline;
-
-    console.log(this.id);
-
 }
 
 const handleCardSaveEdit = () => {
