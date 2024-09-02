@@ -114,8 +114,6 @@ const reAddEvents = () => {
       clickCard(icon.parentElement.parentElement)
     });
   });
-
-  
 }
 
 reAddEvents();
