@@ -105,9 +105,11 @@ const reAddEvents = () => {
       icon.style.opacity = '1';
       icon.style.cursor = 'pointer'; 
     });
+    
     icon.addEventListener('mouseout', () => {
       icon.style.opacity = '0.3';
     })
+    
     icon.addEventListener('click',()=> {
       clickCard(icon.parentElement.parentElement)
     });
