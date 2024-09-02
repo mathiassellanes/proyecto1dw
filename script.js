@@ -112,6 +112,7 @@ function updateCards(columnIndex, cards) {
 
     const h = cardTemplate.content.querySelector("h5");
     const p = cardTemplate.content.querySelector("p");
+    const editIcon = cardTemplate.content.querySelector("figure");
 
     h.textContent = card.title;
     p.textContent = card.description;
@@ -135,6 +136,8 @@ function updateCards(columnIndex, cards) {
     div.draggable = true;
 
     div.id = card.id;
+
+    editIcon.id = "edit" + card.id;
 
     col.appendChild(clone);
   });
