@@ -58,6 +58,10 @@ html {
   flex-direction: column;
 }
 
+.description {
+  word-break: break-all;
+}
+
 @media screen and (min-width:425px) and (max-width: 768px) {
 
   .column:nth-child(4),
@@ -163,6 +167,7 @@ body.dark-mode .level-item h2 {
   margin-top: 10px;
   text-align: right;
   border-top: none;
+  height: 20px;
 }
 
 .text-highlight {

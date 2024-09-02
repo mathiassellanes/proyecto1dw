@@ -80,3 +80,11 @@ const handleCardSaveEdit = () => {
 
   closeAllModals();
 }
+
+const handleCardDelete = () => {
+  cards[currentCard.state] = cards[currentCard.state].filter(card => card.id !== currentCard.id);
+
+  updateCards(Object.keys(cards).indexOf(currentCard.state) + 1, cards[currentCard.state]);
+
+  closeAllModals();
+}
