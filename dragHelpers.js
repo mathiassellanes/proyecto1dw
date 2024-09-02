@@ -98,7 +98,6 @@ const reAddEvents = () => {
     addEventsDragAndDrop(item);
   });
 
-
   const currentEditIcons = document.querySelectorAll('.editIcon');
 
   currentEditIcons.forEach(function(icon) {
