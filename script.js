@@ -14,6 +14,24 @@ const cards = {
   done: [],
 }
 
+function saveStateToLocalStorage() {
+  localStorage.setItem('cardsState', JSON.stringify(cards));
+}
+
+function loadStateFromLocalStorage() {
+  const savedState = localStorage.getItem('cardsState');
+  if (savedState) {
+    Object.assign(cards, JSON.parse(savedState));
+    Object.keys(cards).forEach((columnKey, index) => {
+      updateCards(index + 1, cards[columnKey]);
+    });
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadStateFromLocalStorage();
+});
+
 const columns = [document.getElementById("backlog"),
 document.getElementById("todo"),
 document.getElementById("inProgress"),
@@ -37,7 +55,6 @@ const fontColors = ["has-text-white",
 
 
 function openModal($el) {
-  console.log({ $el });
   $el.classList.add('is-active');
 }
 
@@ -87,7 +104,6 @@ function createCard({ title, description, assigned, priority, state, deadline })
 
 function updateCards(columnIndex, cards) {
   const col = columns[columnIndex - 1];
-  console.log({ col });
   const previousCards = col.querySelectorAll(".draggable");
   previousCards.forEach(element => element.remove());
 
@@ -124,9 +140,8 @@ function updateCards(columnIndex, cards) {
   });
 
   reAddEvents();
+  saveStateToLocalStorage();
 }
-
-updateCards(1, cards.backlog);
 
 const handleCardSave = () => {
   const title = document.getElementById("title");
@@ -172,24 +187,32 @@ const errorTitle = document.getElementById("errorTitle");
 const errorDescription = document.getElementById("errorDescription");
 const errorDeadLine = document.getElementById("errorDeadLine");
 
-function moveCard(cardId, targetColumn) {
+function moveCard(cardId, targetColumnId, targetCardId, isAfter) {
   const card = Object.values(cards).flat().find(card => card.id === cardId);
+  const cardToReplace = Object.values(cards).flat().find(card => card.id === targetCardId);
 
-  console.log({ card, cardId, targetColumn });
+  const previousColumnId = card.state;
 
-  const previousColumn = cards[card.state];
+  const previousColumn = cards[previousColumnId];
 
   previousColumn.splice(previousColumn.indexOf(card), 1);
 
-  cards[targetColumn].push({
-    ...card,
-    state: targetColumn,
-  });
+  card.state = targetColumnId;
 
-  updateCards(Object.keys(cards).indexOf(card.state) + 1, previousColumn);
-  updateCards(Object.keys(cards).indexOf(targetColumn) + 1, cards[targetColumn]);
+  const targetColumn = cards[targetColumnId];
 
-  console.log({ cards });
+  const targetCardIndex = targetColumn.indexOf(cardToReplace);
+
+  if (isAfter) {
+    targetColumn.splice(targetCardIndex + 1, 0, card);
+  } else {
+    targetColumn.splice(targetCardIndex, 0, card);
+  }
+
+  updateCards(Object.keys(cards).indexOf(previousColumnId) + 1, previousColumn);
+  updateCards(Object.keys(cards).indexOf(targetColumnId) + 1, targetColumn);
+
+  saveStateToLocalStorage();
 }
 
 function validarTitleModal(title) {
