@@ -104,16 +104,6 @@ function updateCards(columnIndex, cards) {
     const prioritySpan = cardTemplate.content.querySelector(".priority");
     const deadlineSpan = cardTemplate.content.querySelector(".deadline");
 
-    // Traducir la prioridad a español
-    // let translatedPriority = card.priority;
-    // if (card.priority === "High") {
-    //   translatedPriority = "Alta";
-    // } else if (card.priority === "Medium") {
-    //   translatedPriority = "Media";
-    // } else if (card.priority === "Low") {
-    //   translatedPriority = "Baja";
-    // }
-
     const cardTranslations = {
       "High": "Alta",
       "Medium": "Media",
