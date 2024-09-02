@@ -1,13 +1,5 @@
 const cards = {
-  backlog: [{
-    id: crypto.randomUUID(),
-    title: "Card 1",
-    description: "This is a description for card 1",
-    assigned: "John Doe",
-    priority: "High",
-    state: "backlog",
-    deadline: "2021-12-31",
-  }],
+  backlog: [],
   todo: [],
   inProgress: [],
   blocked: [],
@@ -104,13 +96,7 @@ function updateCards(columnIndex, cards) {
     const prioritySpan = cardTemplate.content.querySelector(".priority");
     const deadlineSpan = cardTemplate.content.querySelector(".deadline");
 
-    const cardTranslations = {
-      "High": "Alta",
-      "Medium": "Media",
-      "Low": "Baja"
-    };
-
-    const translatedPriority = cardTranslations[card.priority];
+    const translatedPriority = card.priority;
 
     h.textContent = card.title;
     p.textContent = card.description;
@@ -131,19 +117,9 @@ function updateCards(columnIndex, cards) {
     const h5 = div.querySelector("h5");
     const paragraph = div.querySelector("p");
 
-    h5.classList.add("is-size-5");
-    paragraph.classList.add("is-size-6");
-
-    div.classList.add('draggable');
-    div.classList.add('card');
-
     div.classList.add(backgroundColors[columnIndex - 1]);
     h5.classList.add(fontColors[columnIndex - 1]);
     paragraph.classList.add(fontColors[columnIndex - 1]);
-
-    // Añadir clases para resaltar el texto de prioridad y fecha
-    prioritySpan.classList.add('text-highlight');
-    deadlineSpan.classList.add('text-highlight');
 
     div.draggable = true;
     div.id = card.id;
