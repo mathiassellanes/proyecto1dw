@@ -16,7 +16,7 @@
     </h1>
     <button class="button mb-5" id="toggle-dark-mode">
       <span class="icon is-small">
-        <img id="toggle-image" src="moon-solid.svg">
+        <img id="toggle-image" src="/assets/moon-solid.svg">
       </span>
     </button>
   </div>
@@ -30,7 +30,7 @@
       <div class="level">
         <div class="level-item">
           <figure class="image is-16x16">
-            <img src="menu-hamburguesa (1).png" alt="Menu icon">
+            <img src="/assets/menu-hamburguesa.png" alt="Menu icon">
           </figure>
         </div>
         <div class="level-item">
@@ -42,7 +42,7 @@
       <div class="level">
         <div class="level-item">
           <figure class="image is-16x16">
-            <img src="menu-hamburguesa.png" alt="Menu icon">
+            <img src="/assets/menu-hamburguesa.png" alt="Menu icon">
           </figure>
         </div>
         <div class="level-item">
@@ -54,7 +54,7 @@
       <div class="level">
         <div class="level-item">
           <figure class="image is-16x16">
-            <img src="angulo-derecho.png" alt="Menu icon">
+            <img src="assets/angulo-derecho.png" alt="Menu icon">
           </figure>
         </div>
         <div class="level-item">
@@ -66,7 +66,7 @@
       <div class="level">
         <div class="level-item">
           <figure class="image is-16x16">
-            <img src="cruz.png" alt="Menu icon">
+            <img src="assets/cruz.png" alt="Menu icon">
           </figure>
         </div>
         <div class="level-item">
@@ -78,7 +78,7 @@
       <div class="level">
         <div class="level-item">
           <figure class="image is-16x16">
-            <img src="controlar.png" alt="Menu icon">
+            <img src="assets/controlar.png" alt="Menu icon">
           </figure>
         </div>
         <div class="level-item">
@@ -108,6 +108,12 @@
             <span id="errorDescription" class="error"></span>
           </div>
         </div>
+        <div class="field">
+          <label class="label">Asignado</label>
+          <div class="control">
+            <input type="text" id="assigned" class="input">
+          </div>
+        </div>
         <div class="field is-flex is-justify-content-space-between">
           <div class="control">
             <label class="label">Estado</label>
@@ -119,19 +125,6 @@
                 <option value="blocked">Blocked</option>
                 <option value="done">Done</option>
               </select>
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">Asignado</label>
-            <div class="control">
-              <div class="select">
-                <select id="assigned">
-                  <option>Opción 1</option>
-                  <option>Opción 2</option>
-                  <option>Opción 3</option>
-                </select>
-              </div>
-
             </div>
           </div>
           <div class="field">
@@ -168,7 +161,7 @@
     <div class="modal-background"></div>
     <div class="modal-card">
       <header class="modal-card-head">
-        <p class="modal-card-title">Modal title</p>
+        <p class="modal-card-title">Editar Tarea</p>
         <button onclick="handleCardCancel()" class="delete" aria-label="close"></button>
       </header>
       <form class="modal-card-body">
@@ -185,30 +178,27 @@
           </div>
         </div>
         <div class="field">
-          <label class="label">Estado</label>
+          <label class="label">Asignado</label>
           <div class="control">
-            <div class="select">
-              <select id="edit-state">
-                <option value="backlog">Backlog</option>
-                <option value="todo">TO DO</option>
-                <option value="inProgress">In Progress</option>
-                <option value="blocked">Blocked</option>
-                <option value="done">Done</option>
-              </select>
-            </div>
+            <input type="text" id="edit-assigned" class="input">
           </div>
+        </div>
+        <div class="field is-flex is-justify-content-space-between">
           <div class="field">
-            <label class="label">Asignado</label>
+            <label class="label">Estado</label>
             <div class="control">
               <div class="select">
-                <select id="edit-assigned">
-                  <option>Opción 1</option>
-                  <option>Opción 2</option>
-                  <option>Opción 3</option>
+                <select id="edit-state">
+                  <option value="backlog">Backlog</option>
+                  <option value="todo">TO DO</option>
+                  <option value="inProgress">In Progress</option>
+                  <option value="blocked">Blocked</option>
+                  <option value="done">Done</option>
                 </select>
               </div>
             </div>
           </div>
+
           <div class="field">
             <label class="label">Prioridad</label>
             <div class="control">
@@ -221,33 +211,12 @@
               </div>
             </div>
           </div>
-          <div class="field">
-            <label class="label">Fecha Límite</label>
-            <div class="control">
-              <input id="edit-deadline" class="input" type="date">
-              <span id="edit-errorDeadLine" class="error"></span>
-            </div>
-          </div>
-        </div>
-        <div class="field">
-          <label class="label">Prioridad</label>
-          <div class="control">
-            <div class="select">
-              <select id="priority">
-                <option>Alta</option>
-                <option>Media</option>
-                <option>Baja</option>
-              </select>
-            </div>
-            <!-- El ícono de prioridad se mostrará en la tarjeta creada, no en el formulario -->
-          </div>
         </div>
         <div class="field">
           <label class="label">Fecha Límite</label>
           <div class="control">
-            <input id="deadline" class="input" type="date">
-            <!-- El ícono de calendario se mostrará en la tarjeta creada, no en el formulario -->
-            <span id="errorDeadLine" class="error"></span>
+            <input id="edit-deadline" class="input" type="date">
+            <span id="edit-errorDeadLine" class="error"></span>
           </div>
         </div>
         <footer class="modal-card-foot">
@@ -265,29 +234,29 @@
       <div class="card-header">
         <span class="priority text-highlight">
           <figure class="image is-16x16">
-            <img src="Icon-Flag.png" alt="Priority flag icon"> Alta
+            <img src="assets/Icon-Flag.png" alt="Priority flag icon"> Alta
           </figure>
         </span>
         <h5 class="title is-size-5">Título de la Tarea</h5>
       </div>
-      <figure class="image is-32x32 editIcon" style="position: absolute; top: 10px; right: 10px; opacity: 0.3;">
-        <img src="edit.png" alt="Description of image">
+      <figure class="image is-20x20 edit-icon">
+        <img src="assets/edit.png" alt="Description of image">
       </figure>
       <p class="description is-size-6">Descripción de la tarea</p>
       <div class="card-footer">
         <span class="deadline text-highlight">
           <figure class="image is-16x16">
-            <img src="Icon-Calendar.png" alt="Calendar icon"> 01/09/2024
+            <img src="assets/Icon-Calendar.png" alt="Calendar icon"> 01/09/2024
           </figure>
         </span>
       </div>
     </div>
   </template>
 
-  <script src="editHelper.js" defer></script>
-  <script src="dragHelpers.js" defer></script>
-  <script src="script.js" defer></script>
-  <script src="darkLightMode.js" defer></script>
+  <script src="src/editHelper.js" defer></script>
+  <script src="src/dragHelpers.js" defer></script>
+  <script src="src/script.js" defer></script>
+  <script src="src/darkLightMode.js" defer></script>
 </body>
 
 </html>
