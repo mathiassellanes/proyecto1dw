@@ -53,7 +53,6 @@ const fontColors = ["has-text-white",
   "has-text-white"
 ]
 
-
 function openModal($el) {
   $el.classList.add('is-active');
 }
@@ -69,22 +68,11 @@ function closeAllModals() {
 }
 
 const $target = document.querySelector(".js-modal-trigger");
-
 const $modal = document.querySelector('#addcard');
 
 $target.addEventListener('click', () => {
   openModal($modal);
 });
-
-
-// (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
-//   const $target = $close.closest('.modal');
-
-//   $close.addEventListener('click', () => {
-//     closeModal($target);
-//   });
-// });
-
 
 document.addEventListener('keydown', (event) => {
   if (event.key === "Escape") {
@@ -113,9 +101,31 @@ function updateCards(columnIndex, cards) {
     const h = cardTemplate.content.querySelector("h5");
     const p = cardTemplate.content.querySelector("p");
     const editIcon = cardTemplate.content.querySelector("figure");
+    const prioritySpan = cardTemplate.content.querySelector(".priority");
+    const deadlineSpan = cardTemplate.content.querySelector(".deadline");
+
+    // Traducir la prioridad a español
+    let translatedPriority = card.priority;
+    if (card.priority === "High") {
+      translatedPriority = "Alta";
+    } else if (card.priority === "Medium") {
+      translatedPriority = "Media";
+    } else if (card.priority === "Low") {
+      translatedPriority = "Baja";
+    }
 
     h.textContent = card.title;
     p.textContent = card.description;
+
+    // Configurar el texto y el ícono de prioridad
+    prioritySpan.innerHTML = `
+      Prioridad: ${translatedPriority}
+      <img src="Icon-Flag.png" alt="Priority flag icon">`;
+
+    // Configurar el texto y el ícono de fecha límite
+    deadlineSpan.innerHTML = `
+      Fecha: ${card.deadline}
+      <img src="Icon-Calendar.png" alt="Calendar icon">`;
 
     const clone = document.importNode(cardTemplate.content, true);
 
@@ -133,8 +143,11 @@ function updateCards(columnIndex, cards) {
     h5.classList.add(fontColors[columnIndex - 1]);
     paragraph.classList.add(fontColors[columnIndex - 1]);
 
-    div.draggable = true;
+    // Añadir clases para resaltar el texto de prioridad y fecha
+    prioritySpan.classList.add('text-highlight');
+    deadlineSpan.classList.add('text-highlight');
 
+    div.draggable = true;
     div.id = card.id;
 
     editIcon.id = "edit" + card.id;
@@ -157,7 +170,6 @@ const handleCardSave = () => {
   const esValidoTitle = validarTitleModal(title.value);
   const esValidoDescription = validarDescriptionModal(description.value);
   const esValidoDeadLine = validarDeadLineModal(deadline.value);
-
 
   if (!esValidoTitle || !esValidoDescription || !esValidoDeadLine) {
     return;
@@ -239,7 +251,6 @@ function validarDescriptionModal(description) {
 }
 
 function validarDeadLineModal(deadLine) {
-
   if (deadLine === "") {
     errorDeadLine.textContent = "Debe seleccionar una fecha.";
     return false;
