@@ -60,9 +60,15 @@ function closeAllModals() {
 }
 
 const $target = document.querySelector(".js-modal-trigger");
+const $target2 = document.querySelector(".js-modal-trigger-mobile");
+
 const $modal = document.querySelector('#addcard');
 
 $target.addEventListener('click', () => {
+  openModal($modal);
+});
+
+$target2.addEventListener('click', () => {
   openModal($modal);
 });
 

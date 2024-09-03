@@ -8,6 +8,10 @@
   --button-dark-background: #666;
 }
 
+.add-task-mobile {
+  display: none;
+}
+
 body {
   height: 100%;
   margin: 0;
@@ -75,6 +79,23 @@ html {
     flex-direction: column;
     align-items: center;
     gap: 10px;
+  }
+
+  .add-task {
+    display: none;
+  }
+
+  .add-task-mobile {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px;
+    width: 40px;
+    height: 40px;
   }
 
   .column {
